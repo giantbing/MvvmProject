@@ -2,6 +2,7 @@ package com.giantbing.mvvmbase.Base
 
 import android.app.Application
 import android.content.Context
+import com.giantbing.toollib.GiantToolUtils
 import kotlin.properties.Delegates
 
 abstract class BaseApp:Application() {
@@ -11,8 +12,11 @@ abstract class BaseApp:Application() {
     override fun onCreate() {
         super.onCreate()
         appContext = applicationContext
+        init()
         initCreate()
     }
     abstract fun initCreate()
-
+    private fun init(){
+        GiantToolUtils.init(appContext)
+    }
 }

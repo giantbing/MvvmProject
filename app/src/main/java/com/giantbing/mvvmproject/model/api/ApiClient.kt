@@ -9,13 +9,12 @@ object ApiClient : BaseRetrofitClient() {
     val api by lazy { getService(Service::class.java, Service.BASE_URL) }
     override fun getConverterFactory(): Converter.Factory = ConverterFactory()
 
-
     override fun getTimeOut(): Int = 10
 
-    override fun otherHanleBuilder(builder: OkHttpClient.Builder) {
+    override fun otherHandleBuilder(builder: OkHttpClient.Builder) {
+
     }
 
     override fun getHeader(): MutableMap<String, String> = mutableMapOf()
-
 
 }

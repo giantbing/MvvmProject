@@ -1,0 +1,25 @@
+ext {
+
+    //版本code
+    versionCode = 1
+    //版本号
+    versionName = "1.0.0"
+
+    flavorDimensions = "1"
+
+    //秘钥配置
+    KEY_PATH = "ssby.jks" //密钥路径
+    KEY_PASSWORD = "ssby2018" //密钥密码
+    ALIAS = "key0" //密钥别名
+    ALIAS_PASSWORD = "ssby2018" //别名密码
+
+
+    minSdkVersion = 23
+    targetSdkVersion = 28
+    compileSdkVersion = 28
+    applicationId = "com.mqq.video"
+
+
+}
+
+

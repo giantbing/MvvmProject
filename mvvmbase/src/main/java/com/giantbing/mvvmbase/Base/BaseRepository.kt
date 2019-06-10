@@ -9,7 +9,5 @@ import java.io.IOException
 open class BaseRepository() {
 
 
-
-
 }
 

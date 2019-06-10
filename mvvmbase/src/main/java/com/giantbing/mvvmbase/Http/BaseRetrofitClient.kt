@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
 abstract class BaseRetrofitClient {
 
     abstract fun getTimeOut(): Int
-    abstract fun otherHanleBuilder(builder: OkHttpClient.Builder)
+    abstract fun otherHandleBuilder(builder: OkHttpClient.Builder)
     abstract fun getHeader(): MutableMap<String, String>
     //使用默认的GsonConverterFactory
 
@@ -31,7 +31,7 @@ abstract class BaseRetrofitClient {
                 .addInterceptor(HeadInterCepteor(getHeader()))
                 .connectTimeout(getTimeOut().toLong(), TimeUnit.SECONDS)
                 .readTimeout(getTimeOut().toLong(), TimeUnit.SECONDS)
-
+            otherHandleBuilder(builder)
             return builder.build()
         }
 
@@ -39,7 +39,6 @@ abstract class BaseRetrofitClient {
         return Retrofit.Builder()
             .client(client)
             .addConverterFactory(getConverterFactory())
-//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .baseUrl(baseUrl)
             .build().create(serviceClass)
