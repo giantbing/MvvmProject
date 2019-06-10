@@ -7,8 +7,9 @@ import com.netease.nimlib.sdk.Observer
 import com.netease.nimlib.sdk.StatusCode
 import com.netease.nimlib.sdk.auth.AuthServiceObserver
 import com.netease.nimlib.sdk.auth.constant.LoginSyncStatus
-
+//负责登录后 监听是否在同步数据和  用户状态变更
 object ImUserStateObs : BaseLive, Observer<StatusCode> {
+
     //是否在同步数据
     object ImSyncstatus : Observer<LoginSyncStatus> {
         override fun onEvent(t: LoginSyncStatus?) {
@@ -100,6 +101,7 @@ object ImUserStateObs : BaseLive, Observer<StatusCode> {
     }
 
     override fun doRegist() {
+
         NIMClient.getService(AuthServiceObserver::class.java).observeOnlineStatus(this, true)
         NIMClient.getService(AuthServiceObserver::class.java).observeLoginSyncDataStatus(ImSyncstatus, true)
     }

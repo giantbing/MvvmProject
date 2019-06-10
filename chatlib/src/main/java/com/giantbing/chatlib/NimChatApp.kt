@@ -9,4 +9,10 @@ object NimChatApp {
         NIMClient.init(context, null, SdkConfig.getNimSdkOptions(context))
     }
 
+
+    fun toggleNotification(enable:Boolean){
+        NIMClient.toggleNotification(enable)
+    }
+
+
 }

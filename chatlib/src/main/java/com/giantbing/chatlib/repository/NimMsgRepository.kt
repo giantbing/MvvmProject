@@ -12,9 +12,9 @@ import java.io.File
 
 
 object NimMsgRepository : NimBaseRepository() {
-    private val CHAT_TYPE_P2P = SessionTypeEnum.P2P
 
-    private val msgService by lazy { NIMClient.getService(MsgService::class.java) }
+
+
 
     //发送文本消息
     fun sentStringMsg(accid: String, msg: String): Observable<CallBack> {
