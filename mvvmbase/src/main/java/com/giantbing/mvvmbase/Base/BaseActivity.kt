@@ -3,7 +3,6 @@ package com.giantbing.mvvmbase.Base
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
-import com.afollestad.materialdialogs.MaterialDialog
 
 abstract class BaseActivity<VM : BaseViewModel> : AppCompatActivity() {
     protected lateinit var mViewModel: VM
@@ -15,6 +14,7 @@ abstract class BaseActivity<VM : BaseViewModel> : AppCompatActivity() {
         initView()
         initData()
         bindView()
+        bindClick()
     }
 
 
@@ -53,6 +53,7 @@ abstract class BaseActivity<VM : BaseViewModel> : AppCompatActivity() {
     abstract fun initView()
     abstract fun bindView()
     abstract fun initData()
+    abstract fun bindClick()
     override fun onDestroy() {
         mViewModel.let {
             lifecycle.removeObserver(it)

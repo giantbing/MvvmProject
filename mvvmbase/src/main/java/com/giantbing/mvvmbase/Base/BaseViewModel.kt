@@ -16,16 +16,19 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
 
     fun <T : Any> api(api: Observable<T>, successBlock: (T) -> Unit, errorBlock: (ErrorData) -> Unit): Disposable {
         return api.observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe({
-                successBlock.invoke(it)
-            }, {
-                errorBlock.invoke(handleError(it))
-            })
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe {
+                    disposables.add(it)
+                }
+                .subscribe({
+                    successBlock.invoke(it)
+                }, {
+                    errorBlock.invoke(handleError(it))
+                })
     }
 
-    private fun handleError(t: Throwable):ErrorData {
-       return ExceptionHandle.exceptionMessage(t)
+    private fun handleError(t: Throwable): ErrorData {
+        return ExceptionHandle.exceptionMessage(t)
     }
 
     override fun onCleared() {
@@ -33,6 +36,7 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
         disposables.clear()
     }
 }
+
 object ExceptionHandle {
     val network_error = "网络错误,请重试"
     fun exceptionMessage(e: Throwable): ErrorData {

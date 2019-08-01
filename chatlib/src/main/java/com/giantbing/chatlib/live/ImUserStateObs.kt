@@ -101,12 +101,13 @@ object ImUserStateObs : BaseLive, Observer<StatusCode> {
     }
 
     override fun doRegist() {
-
+        //登录时调用
         NIMClient.getService(AuthServiceObserver::class.java).observeOnlineStatus(this, true)
         NIMClient.getService(AuthServiceObserver::class.java).observeLoginSyncDataStatus(ImSyncstatus, true)
     }
 
     override fun onDestory() {
+        //注销时调用
         NIMClient.getService(AuthServiceObserver::class.java).observeOnlineStatus(this, false)
         NIMClient.getService(AuthServiceObserver::class.java).observeLoginSyncDataStatus(ImSyncstatus, false)
     }

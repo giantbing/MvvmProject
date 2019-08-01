@@ -15,6 +15,10 @@ object ApiClient : BaseRetrofitClient() {
 
     }
 
-    override fun getHeader(): MutableMap<String, String> = mutableMapOf()
+    override fun getHeader(): MutableMap<String, String> = mutableMapOf(
+            Pair("os", "android"),
+            Pair("channels", "pugongying"),
+            Pair("waistcoat", "JM"),
+            Pair("appversion", "1.8.1"))
 
 }

@@ -3,6 +3,7 @@ package com.giantbing.mvvmbase.Base
 import android.app.Application
 import android.content.Context
 import com.giantbing.toollib.GiantToolUtils
+import com.giantbing.toollib.Log.GiantLog
 import kotlin.properties.Delegates
 
 abstract class BaseApp:Application() {
