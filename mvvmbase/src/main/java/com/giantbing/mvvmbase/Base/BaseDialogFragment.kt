@@ -10,7 +10,11 @@ import androidx.lifecycle.ViewModelProviders
 abstract class BaseDialogFragment<VM : BaseViewModel> : DialogFragment() {
     protected lateinit var mViewModel: VM
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(getLayoutResId(), container, false)
     }
 
@@ -23,7 +27,6 @@ abstract class BaseDialogFragment<VM : BaseViewModel> : DialogFragment() {
     }
 
 
-
     open fun startObserve() {}
     abstract fun getLayoutResId(): Int
 
@@ -32,13 +35,13 @@ abstract class BaseDialogFragment<VM : BaseViewModel> : DialogFragment() {
     abstract fun initData()
 
     private fun initVM() {
-        providerVMClass()?.let {
+        providerVMClass().let {
             mViewModel = ViewModelProviders.of(this).get(it)
             lifecycle.addObserver(mViewModel)
         }
     }
 
-    open fun providerVMClass(): Class<VM>? = null
+    abstract fun providerVMClass(): Class<VM>
 
     override fun onDestroy() {
         this.dismiss()

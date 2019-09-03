@@ -29,13 +29,13 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
     abstract fun initData()
 
     private fun initVM() {
-        providerVMClass()?.let {
+        providerVMClass().let {
             mViewModel = ViewModelProviders.of(this).get(it)
             lifecycle.addObserver(mViewModel)
         }
     }
 
-    open fun providerVMClass(): Class<VM>? = null
+    abstract fun providerVMClass(): Class<VM>
 
     override fun onDestroy() {
         lifecycle.removeObserver(mViewModel)
