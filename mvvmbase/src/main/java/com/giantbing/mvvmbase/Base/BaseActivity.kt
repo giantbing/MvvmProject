@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProviders
 abstract class BaseActivity<VM : BaseViewModel> : AppCompatActivity() {
     protected lateinit var mViewModel: VM
     //private var mDialog: MaterialDialog? = null
+    private val waitDialog  by lazy { WaitDialog() }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutResId())
@@ -24,28 +25,14 @@ abstract class BaseActivity<VM : BaseViewModel> : AppCompatActivity() {
     }
 
 
-    protected fun showProgressDialog(content: String) {
-//        if (mDialog == null)
-//            mDialog = MaterialDialog.Builder(this)
-//                .content(content).progress(true, 1)
-//                .canceledOnTouchOutside(false).build()
-//        else
-//            mDialog?.setContent(content)
-//        mDialog?.show()
+    protected fun showProgressDialog() {
+        waitDialog.show(this.supportFragmentManager,"")
     }
 
-    protected fun showProgressDialog(resId: Int) {
-//        if (mDialog == null)
-//            mDialog = MaterialDialog.Builder(this)
-//                .content(getString(resId)).progress(true, 1)
-//                .canceledOnTouchOutside(false).build()
-//        else
-//            mDialog?.setContent(getString(resId))
-//        mDialog?.show()
-    }
 
     protected fun dismissProgressDialog() {
-        // mDialog?.dismiss()
+
+        waitDialog.dismiss()
     }
 
     abstract fun providerVMClass(): Class<VM>

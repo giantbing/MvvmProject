@@ -4,25 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.mqq.ssby.pyx.base.FatherFragment
 
-abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
+abstract class BaseFragment<VM : BaseViewModel> : FatherFragment() {
     protected lateinit var mViewModel: VM
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(getLayoutResId(), container, false)
-    }
+    private val waitDialog  by lazy { WaitDialog() }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+
+    override fun onCreateFragment(contentView: View?) {
         initVM()
         initView()
         initData()
         startObserve()
-        super.onViewCreated(view, savedInstanceState)
     }
 
+
     open fun startObserve() {}
-    abstract fun getLayoutResId(): Int
+    abstract fun providerVMClass(): Class<VM>
+
 
     abstract fun initView()
 
@@ -30,13 +32,22 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
 
     private fun initVM() {
         providerVMClass().let {
+//            ViewModelProvider(this).get(it)
             mViewModel = ViewModelProviders.of(this).get(it)
+
             lifecycle.addObserver(mViewModel)
         }
     }
 
-    abstract fun providerVMClass(): Class<VM>
+    protected fun showProgressDialog() {
+        waitDialog.show(requireActivity().supportFragmentManager,"")
+    }
 
+
+    protected fun dismissProgressDialog() {
+
+        waitDialog.dismiss()
+    }
     override fun onDestroy() {
         lifecycle.removeObserver(mViewModel)
         super.onDestroy()
